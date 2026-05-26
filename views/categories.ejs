@@ -1,0 +1,20 @@
+<%- include("partials/header", { title }) %>
+
+<div class="page-content">
+  <h2>Service Project Categories</h2>
+
+  <div class="card">
+    <ul>
+      <% if (categories && categories.length > 0) { %>
+        <% categories.forEach(category => { %>
+          <li><%= category.category_name %></li>
+        <% }) %>
+      <% } else { %>
+        <li>No categories found.</li>
+      <% } %>
+    </ul>
+  </div>
+</div>
+
+<%- include("partials/footer") %>
+<%- include("partials/footer", { currentYear }) %>

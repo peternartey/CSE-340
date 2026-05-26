@@ -1,0 +1,14 @@
+{
+  "name": "cse-340",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.3",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "pg": "^8.21.0"
+  }
+}
