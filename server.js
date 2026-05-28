@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const categoriesModel = require("./src/models/categories");
+const categoriesModel = require("./src/models/categoriesModel");
 const pool = require("./src/database");
 
 const app = express();

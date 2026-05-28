@@ -1,4 +1,4 @@
-const categoryModel = require("../models/categories");
+const categoryModel = require("../models/categoriesModel");
 
 // Show category details page
 async function showCategoryDetailsPage(req, res) {
