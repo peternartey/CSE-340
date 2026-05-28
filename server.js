@@ -18,62 +18,58 @@ const currentYear = new Date().getFullYear();
 
 // Routes
 app.get("/", (req, res) => {
-  res.render("home", {
-    title: "Home",
-    currentYear
-  });
+  res.render("home", { title: "Home", currentYear });
 });
 
 app.get("/organizations", (req, res) => {
-  res.render("organizations", {
-    title: "Organizations",
-    currentYear
-  });
+  res.render("organizations", { title: "Organizations", currentYear });
 });
 
 app.get("/projects", (req, res) => {
-  res.render("projects", {
-    title: "Projects",
-    currentYear
-  });
+  res.render("projects", { title: "Projects", currentYear });
 });
 
 app.get("/categories", async (req, res) => {
-
   try {
-
     const categories = await categoriesModel.getAllCategories();
-
-    res.render("categories", {
-      title: "Categories",
-      categories,
-      currentYear
-    });
-
+    res.render("categories", { title: "Categories", categories, currentYear });
   } catch (error) {
-
     console.error(error);
     res.status(500).send("Server Error");
-
   }
-
 });
 
 // Database check route
 app.get("/db-check", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
-    res.json({
-      status: "✅ Database connected",
-      timestamp: result.rows[0].now
-    });
+    res.json({ status: "✅ Database connected", timestamp: result.rows[0].now });
   } catch (error) {
-    res.status(500).json({
-      status: "❌ Database connection failed",
-      error: error.message
-    });
+    res.status(500).json({ status: "❌ Database connection failed", error: error.message });
   }
 });
+
+// Error handling middleware (add here)
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).render("404", {
+    title: "Page Not Found",
+    message: "The page you requested does not exist.",
+    currentYear: new Date().getFullYear()
+  });
+});
+
+// 500 handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("500", {
+    title: "Server Error",
+    message: "Something went wrong.",
+    currentYear: new Date().getFullYear()
+  });
+});
+
 
 // Start server
 app.listen(PORT, () => {

@@ -7,7 +7,11 @@
     <ul>
       <% if (categories && categories.length > 0) { %>
         <% categories.forEach(category => { %>
-          <li><%= category.category_name %></li>
+          <li>
+            <a href="/category/<%= category.category_id %>">
+              <%= category.category_name %>
+            </a>
+          </li>
         <% }) %>
       <% } else { %>
         <li>No categories found.</li>
@@ -16,5 +20,5 @@
   </div>
 </div>
 
-<%- include("partials/footer") %>
+
 <%- include("partials/footer", { currentYear }) %>

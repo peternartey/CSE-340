@@ -1,13 +1,22 @@
 <%- include("partials/header", { title }) %>
 
 <div class="page-content">
-  <h2>Service Projects</h2>
+  <h2>Upcoming Service Projects</h2>
 
   <div class="card">
-    <p>
-      Our service projects focus on improving communities
-      through volunteer programs and outreach activities.
-    </p>
+    <% if (projects && projects.length > 0) { %>
+      <ul>
+        <% projects.forEach(project => { %>
+          <li>
+            <a href="/project/<%= project.project_id %>"><%= project.title %></a>
+            -
+            <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No upcoming projects found.</p>
+    <% } %>
   </div>
 </div>
 
