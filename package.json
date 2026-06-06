@@ -1,0 +1,32 @@
+{
+  "name": "cse340-course-repo",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/gino004/cse340-course-repo#readme",
+  "bugs": {
+    "url": "https://github.com/gino004/cse340-course-repo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gino004/cse340-course-repo.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

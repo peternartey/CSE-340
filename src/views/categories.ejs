@@ -1,0 +1,37 @@
+<%- include('partials/header') %>
+
+	<main>
+
+		<h1>
+			<%= title %>
+		</h1>
+
+		<p>Here are our service project categories:</p>
+
+		<ul>
+
+			<% categories.forEach(category=> { %>
+
+				<li>
+
+					<a href="/category/<%= category.category_id %>">
+
+						<%= category.name %>
+
+					</a>
+
+				</li>
+
+				<% }); %>
+
+		</ul>
+
+		<p>
+			<a href="/new-category">
+				Add New Category
+			</a>
+		</p>
+
+	</main>
+
+	<%- include('partials/footer') %>

@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+
+	<main>
+
+		<h1>
+			<%= title %>
+		</h1>
+
+		<p>Here are some of our current service projects:</p>
+
+		<ul>
+
+			<% projects.forEach(project=> { %>
+
+				<li>
+
+					<strong>
+					<%= project.project_date ? new Date(project.project_date).toLocaleDateString() : 'Date TBD' %>
+
+					<a href="/project/<%= project.project_id %>">
+					
+						<%= project.title %>
+					
+					</a>
+					
+					(
+					
+					<a href="/organization/<%= project.organization_id %>">
+					
+						<%= project.organization_name %>
+					
+					</a>
+					
+					)
+
+				</li>
+
+				<% }); %>
+
+		</ul>
+
+		<p>
+			<a href="/new-project">
+				Add New Project
+			</a>
+		</p>
+
+	</main>
+
+	<%- include('partials/footer') %>
