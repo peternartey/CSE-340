@@ -10,8 +10,8 @@ const getAllProjects = async () => {
             p.project_id,
             p.project_name AS title,
             p.project_description AS description,
-            '' AS location,
-            NULL::date AS project_date,
+            p.location,
+            p.project_date,
             o.organization_name AS organization_name
         FROM public.projects p
         JOIN public.organizations o
@@ -35,8 +35,8 @@ const getProjectsByOrganizationId = async (organizationId) => {
             organization_id,
             project_name AS title,
             project_description AS description,
-            '' AS location,
-            NULL::date AS project_date
+            location,
+            project_date
         FROM projects
         WHERE organization_id = $1
         ORDER BY project_id;
@@ -59,8 +59,8 @@ const getUpcomingProjects = async (number_of_projects) => {
             p.project_id,
             p.project_name AS title,
             p.project_description AS description,
-            '' AS location,
-            NULL::date AS project_date,
+            p.location,
+            p.project_date,
             p.organization_id,
             o.organization_name AS organization_name
         FROM projects p
@@ -87,8 +87,8 @@ const getProjectDetails = async (id) => {
             p.project_id,
             p.project_name AS title,
             p.project_description AS description,
-            '' AS location,
-            NULL::date AS project_date,
+            p.location,
+            p.project_date,
             p.organization_id,
             o.organization_name AS organization_name
         FROM projects p
@@ -141,12 +141,16 @@ const createProject = async (
 		INSERT INTO projects (
 			project_name,
 			project_description,
+			location,
+			project_date,
 			organization_id
 		)
 		VALUES (
 			$1,
 			$2,
-			$3
+			$3,
+			$4,
+			$5
 		)
 		RETURNING project_id;
 	`;
@@ -154,6 +158,8 @@ const createProject = async (
 	const queryParams = [
 		title,
 		description,
+		location,
+		date,
 		organizationId
 	];
 
@@ -205,14 +211,18 @@ const updateProject = async (
         SET
             project_name = $1,
             project_description = $2,
-            organization_id = $3
-        WHERE project_id = $4
+            location = $3,
+            project_date = $4,
+            organization_id = $5
+        WHERE project_id = $6
         RETURNING project_id;
     `;
 
 	const queryParams = [
 		title,
 		description,
+		location,
+		date,
 		organizationId,
 		projectId
 	];

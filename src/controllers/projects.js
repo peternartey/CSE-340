@@ -211,6 +211,25 @@ const processEditProjectForm = async (
 		organizationId
 	} = req.body;
 
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+
+		errors.array().forEach(error => {
+
+			req.flash(
+				'error',
+				error.msg
+			);
+
+		});
+
+		return res.redirect(
+			`/edit-project/${projectId}`
+		);
+
+	}
+
 	await updateProject(
 		projectId,
 		title,

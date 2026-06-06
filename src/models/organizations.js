@@ -10,8 +10,8 @@ const getAllOrganizations = async () => {
             organization_id,
             organization_name AS name,
             organization_description AS description,
-            '' AS contact_email,
-            'placeholder-logo.png' AS logo_filename
+            contact_email,
+            logo_filename
         FROM public.organizations;
     `;
 
@@ -29,8 +29,8 @@ const getOrganizationDetails = async (organizationId) => {
             organization_id,
             organization_name AS name,
             organization_description AS description,
-            '' AS contact_email,
-            'placeholder-logo.png' AS logo_filename
+            contact_email,
+            logo_filename
         FROM public.organizations
         WHERE organization_id = $1;
     `;
@@ -57,15 +57,17 @@ const createOrganization = async (
 	const query = `
         INSERT INTO organizations (
             organization_name,
-            organization_description
+            organization_description,
+            contact_email
         )
-        VALUES ($1, $2)
+        VALUES ($1, $2, $3)
         RETURNING organization_id;
     `;
 
 	const queryParams = [
 		name,
-		description
+		description,
+		contactEmail
 	];
 
 	const result =
@@ -104,14 +106,16 @@ const updateOrganization = async (
         UPDATE public.organizations
         SET
             organization_name = $1,
-            organization_description = $2
-        WHERE organization_id = $3
+            organization_description = $2,
+            contact_email = $3
+        WHERE organization_id = $4
         RETURNING organization_id;
     `;
 
 	const queryParams = [
 		name,
 		description,
+		contactEmail,
 		organizationId
 	];
 

@@ -28,7 +28,7 @@ router.post('/new-organization', organizationValidation, processNewOrganizationF
 
 router.get('/edit-organization/:id', showEditOrganizationForm);
 
-router.post('/edit-organization/:id', processEditOrganizationForm);
+router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
 
 router.get('/projects', showProjectsPage);
 
@@ -40,7 +40,7 @@ router.post('/new-project', projectValidation, processNewProjectForm);
 
 router.get('/edit-project/:id', showEditProjectForm);
 
-router.post('/edit-project/:id', processEditProjectForm);
+router.post('/edit-project/:id', projectValidation, processEditProjectForm);
 
 router.get('/categories', showCategoriesPage);
 

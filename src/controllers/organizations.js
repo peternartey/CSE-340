@@ -147,14 +147,30 @@ const processEditOrganizationForm = async (req, res) => {
 		contactEmail
 	} = req.body;
 
-	const organizationDetails = await getOrganizationDetails(organizationId);
+	const results = validationResult(req);
 
-	const logoFilename = organizationDetails.logo_filename;
+	if (!results.isEmpty()) {
+
+		results.array().forEach((error) => {
+
+			req.flash(
+				'error',
+				error.msg
+			);
+
+		});
+
+		return res.redirect(
+			`/edit-organization/${organizationId}`
+		);
+
+	}
 
 	await updateOrganization(
 		organizationId,
 		name,
-		description
+		description,
+		contactEmail
 	);
 
 	req.flash('success', 'Organization updated successfully!');

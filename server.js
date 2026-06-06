@@ -16,7 +16,7 @@ const __dirname = path.dirname(__filename);
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'development';
 
 // Define the port number
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 const SESSION_SECRET = process.env.SESSION_SECRET || 'development-secret';
 
