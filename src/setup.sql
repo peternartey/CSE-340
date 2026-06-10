@@ -10,6 +10,25 @@ CREATE TABLE organization (
 );
 
 -- ========================================
+-- Create user table
+-- ========================================
+CREATE TABLE IF NOT EXISTS app_user (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL DEFAULT 'user',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- ========================================
+-- Seed admin account
+-- ========================================
+INSERT INTO app_user (name, email, password_hash, role)
+VALUES ('Admin User', 'admin@example.com', '$2b$10$Jq1KD9MjhcURTuL6iGJ5o.u0fcBPX4UCTPwNFgu7Ig4AxrqbwqvnO', 'admin')
+ON CONFLICT (email) DO NOTHING;
+
+-- ========================================
 -- Insert sample data: Organizations
 -- ========================================
 INSERT INTO organization (

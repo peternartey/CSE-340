@@ -4,6 +4,9 @@ import express from 'express';
 
 import { showHomePage } from './controllers/index.js';
 
+import { showRegisterForm, processRegister, showLoginForm, processLogin, logout, showUsersPage } from './controllers/auth.js';
+import { requireRole } from './middleware/auth.js';
+
 import { showOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm, showEditOrganizationForm, processEditOrganizationForm, organizationValidation } from './controllers/organizations.js';
 
 import { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, showEditProjectForm, processEditProjectForm, projectValidation } from './controllers/projects.js';
@@ -17,6 +20,13 @@ const router = express.Router();
 //	Define routes and associate them with controller functions:
 
 router.get('/', showHomePage);
+
+router.get('/register', showRegisterForm);
+router.post('/register', processRegister);
+router.get('/login', showLoginForm);
+router.post('/login', processLogin);
+router.get('/logout', logout);
+router.get('/users', requireRole('admin'), showUsersPage);
 
 router.get('/organizations', showOrganizationsPage);
 

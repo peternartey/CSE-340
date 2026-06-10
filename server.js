@@ -48,6 +48,14 @@ app.use(
 // Use custom flash message middleware
 app.use(flash);
 
+// Make auth state available to views
+app.use((req, res, next) => {
+  res.locals.currentUser = req.session?.user || null;
+  res.locals.isAuthenticated = Boolean(req.session?.user);
+  res.locals.isAdmin = req.session?.user?.role === 'admin';
+  next();
+});
+
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
