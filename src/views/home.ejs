@@ -14,6 +14,25 @@
         <a class="button accent" href="/users">Manage Registered Users</a>
       <% } %>
     </div>
+
+      <% if (locals.volunteerProjects && locals.volunteerProjects.length > 0) { %>
+        <section>
+          <h3>Your Volunteer Signups</h3>
+          <ul>
+            <% locals.volunteerProjects.forEach((p) => { %>
+              <li>
+                <strong><a href="/project/<%= p.project_id %>"><%= p.title %></a></strong>
+                 — <%= p.organization_name %>
+                <form action="/project/<%= p.project_id %>/unvolunteer" method="post" style="display:inline; margin-left:8px">
+                  <button type="submit" class="button">Remove</button>
+                </form>
+              </li>
+            <% }) %>
+          </ul>
+        </section>
+      <% } else { %>
+        <p>You have not signed up to volunteer for any projects yet.</p>
+      <% } %>
   <% } else { %>
     <h2>Welcome to the CSE 340 Service Network!</h2>
 

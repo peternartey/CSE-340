@@ -5,11 +5,11 @@ import express from 'express';
 import { showHomePage } from './controllers/index.js';
 
 import { showRegisterForm, processRegister, showLoginForm, processLogin, logout, showUsersPage } from './controllers/auth.js';
-import { requireRole } from './middleware/auth.js';
+import { requireLogin, requireRole } from './middleware/auth.js';
 
 import { showOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm, showEditOrganizationForm, processEditOrganizationForm, organizationValidation } from './controllers/organizations.js';
 
-import { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, showEditProjectForm, processEditProjectForm, projectValidation } from './controllers/projects.js';
+import { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, showEditProjectForm, processEditProjectForm, projectValidation, volunteerForProject, removeVolunteerFromProject } from './controllers/projects.js';
 
 import { showCategoriesPage, showCategoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm, showNewCategoryForm, processNewCategoryForm, showEditCategoryForm, processEditCategoryForm, categoryValidation } from './controllers/categories.js';
 
@@ -43,6 +43,8 @@ router.post('/edit-organization/:id', organizationValidation, processEditOrganiz
 router.get('/projects', showProjectsPage);
 
 router.get('/project/:id', showProjectDetailsPage);
+router.post('/project/:id/volunteer', requireLogin, volunteerForProject);
+router.post('/project/:id/unvolunteer', requireLogin, removeVolunteerFromProject);
 
 router.get('/new-project', showNewProjectForm);
 

@@ -88,6 +88,19 @@
 
 		</p>
 
+		<% if (locals.isAuthenticated) { %>
+			<% if (locals.isVolunteer) { %>
+				<form action="/project/<%= project.project_id %>/unvolunteer" method="post" style="display:inline">
+					<button type="submit" class="button">Remove myself as volunteer</button>
+				</form>
+				<p>You are volunteering for this project.</p>
+			<% } else { %>
+				<form action="/project/<%= project.project_id %>/volunteer" method="post" style="display:inline">
+					<button type="submit" class="button">Volunteer for this project</button>
+				</form>
+			<% } %>
+		<% } %>
+
 	</main>
 
 	<%- include('partials/footer') %>

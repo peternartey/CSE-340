@@ -230,6 +230,20 @@ CREATE TABLE project_category (
 );
 
 -- ========================================
+-- Create project_volunteer table
+-- Tracks which users volunteer for which projects (many-to-many)
+-- ========================================
+
+CREATE TABLE IF NOT EXISTS project_volunteer (
+    user_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    signed_up_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    PRIMARY KEY (user_id, project_id),
+    CONSTRAINT fk_vol_user FOREIGN KEY (user_id) REFERENCES app_user(user_id),
+    CONSTRAINT fk_vol_project FOREIGN KEY (project_id) REFERENCES project(project_id)
+);
+
+-- ========================================
 -- Insert sample data: Categories
 -- ========================================
 
